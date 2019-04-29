@@ -1,0 +1,37 @@
+<html>
+<head>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script>
+		var onRequest = function(){
+			let input = document.getElementById('query').value;
+			let url  = 'https://bitqit.serveo.net/search?query='+input;
+			axios.get(url)
+			.then(function(response){
+				//console.log(response.data.domains);
+				let array = response.data.domains;
+				let ul = document.getElementById('list');
+				for(let item of array){
+					var li = document.createElement("li");
+  					li.appendChild(document.createTextNode(item.domain));
+  					ul.appendChild(li);
+				}
+				
+			})
+			.catch(function(error) {
+				console.log(error);
+			});
+		}
+	</script>
+
+</head>
+<body>
+	<h3>Search for Domains</h3>
+
+	<input type="text" id="query" placeholder="search"></input>
+	<button type="button" onclick="onRequest()">Search</button>
+	<ul id="list">
+		
+	</ul>
+</body>
+
+</html>
